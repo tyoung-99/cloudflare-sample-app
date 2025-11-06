@@ -5,12 +5,15 @@
  * @returns The url of an image or video which is cute.
  */
 export async function getCuteUrl() {
+  console.log('Fetching from Reddit');
   const response = await fetch(redditUrl, {
     headers: {
       'User-Agent': 'justinbeckwith:awwbot:v1.0.0 (by /u/justinblat)',
     },
   });
+  console.log('Checking Reddit response');
   if (!response.ok) {
+    console.log('Response not ok');
     let errorText = `Error fetching ${response.url}: ${response.status} ${response.statusText}`;
     try {
       const error = await response.text();
@@ -20,8 +23,10 @@ export async function getCuteUrl() {
     } catch {
       // ignore
     }
+    console.log(errorText);
     throw new Error(errorText);
   }
+  console.log('Response ok');
   const data = await response.json();
   const posts = data.data.children
     .map((post) => {
@@ -37,6 +42,7 @@ export async function getCuteUrl() {
     .filter((post) => !!post);
   const randomIndex = Math.floor(Math.random() * posts.length);
   const randomPost = posts[randomIndex];
+  console.log('Returning post');
   return randomPost;
 }
 
