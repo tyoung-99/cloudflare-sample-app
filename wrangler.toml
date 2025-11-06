@@ -1,6 +1,13 @@
 name = "cloudflare-sample-app"
 main = "./src/server.js"
-compatibility_date="2023-05-18"
+compatibility_date="2025-11-06"
+
+[observability]
+[observability.logs]
+enabled = false
+head_sampling_rate = 1
+invocation_logs = true
+persist = true
 
 # [secrets]
 # DISCORD_TOKEN
